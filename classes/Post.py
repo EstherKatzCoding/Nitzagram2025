@@ -1,29 +1,58 @@
 import pygame
-
 from constants import *
-from helpers import screen
 
 
 class Post:
     """
     A class used to represent post on Nitzagram
     """
-    def __init__(self): #TODO: add parameters
-        #TODO: write me!
-        pass
+    def __init__(self, username, location, description, likes_counter, comments):
+        self.username = username
+        self.location = location
+        self.description = description
+        self.likes_counter = 0
+        self.comments = []
+
+
+    def add_like(self):
+        self.likes_counter += 1
+
+    def add_comment(self, text):
+        self.comments.append(text)
 
     def display(self):
-        """
-        Display the Post image/Text, description, location, likes and comments
-        on screen
+        screen_size = (WINDOW_WIDTH, WINDOW_HEIGHT)
+        screen = pygame.display.set_mode(screen_size)
 
-        :return: None
-        """
-        # TODO: write me!
-        pass
+        # username
+        username_font = pygame.font.SysFont("Ariel", UI_FONT_SIZE)
+        username_text = username_font.render(self.username, True,BLACK)
+        screen.blit(username_text, (USER_NAME_X_POS, USER_NAME_Y_POS))
+
+        # location
+        location_font = pygame.font.SysFont("Ariel", UI_FONT_SIZE)
+        location_text = location_font.render(self.location, True, BLACK)
+        screen.blit(location_text, (LOCATION_TEXT_X_POS, LOCATION_TEXT_Y_POS))
+
+        # number of likes
+        likes_font = pygame.font.SysFont("Ariel", UI_FONT_SIZE)
+        likes_text = likes_font.render(self.likes_counter, True, BLACK)
+        screen.blit(likes_text, (LIKE_TEXT_X_POS, LIKE_TEXT_Y_POS))
+
+        # description
+        description_font = pygame.font.SysFont("Ariel", UI_FONT_SIZE)
+        description_text = description_font.render(self.description, True, BLACK)
+        screen.blit(description_text, (DESCRIPTION_TEXT_X_POS, DESCRIPTION_TEXT_Y_POS))
+
+        # comments
+        for i, comment in enumerate(self.comments[:6]):  # displays up to 6 comments
+            comment_font = pygame.font.SysFont("Ariel", UI_FONT_SIZE)
+            comment_text = comment_font.render(comment, True, BLACK)
+            comment_y = FIRST_COMMENT_Y_POS + i * COMMENT_LINE_HEIGHT
+            screen.blit(comment_text, (FIRST_COMMENT_X_POS, comment_y))
 
 
-    def display_comments(self):
+def display_comments(self):
         """
         Display comments on post. In case there are more than 4
         comments, show only 4 comments chosen by reset_comments_display_index
