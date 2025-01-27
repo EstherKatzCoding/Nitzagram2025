@@ -1,7 +1,7 @@
 import pygame
 from helpers import screen, mouse_in_button, read_comment_from_user
 from constants import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK
-
+from buttons import *
 
 def main():
     pygame.init()
